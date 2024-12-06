@@ -1,0 +1,30 @@
+<footer class="main-footer footer-stick" style="">
+    <div class="switch-container container-footer container">
+        <div class="footer row pt-5 text-center text-md-left">
+            <div class="col-12 col-md-4 mb-4 mb-md-0"><a href="https://nav.iowen.cn"
+                    class="logo-expanded footer-logo"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/logo.svg" height="40" alt="{{ SITENAME }}"></a>
+                <div class="text-sm mt-4">{{ SITEDESCRIPTION }}</div>
+                <div class="footer-social mt-3">
+                    {% if SOCIAL_SHARE_CODE %}
+                        {{ SOCIAL_SHARE_CODE }}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-12 col-md-5 my-4 my-md-0">
+                <p class="footer-links text-sm mb-3">
+                    {% for name, link, target in FOOTER_MENUS %}
+                        <a href="{{ link }}" target="{{ target }}">{{ name }}</a>
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="col-12 col-md-3 text-md-right mb-4 mb-md-0">
+                {% if EXTRA_HTML %}
+                    {{ EXTRA_HTML }}
+                {% endif %}
+            </div>
+            <div class="footer-copyright m-3 text-xs">
+                {{ COPYRIGHT }}
+            </div>
+        </div>
+    </div>
+</footer>

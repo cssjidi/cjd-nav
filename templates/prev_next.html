@@ -1,0 +1,31 @@
+<div class="near-navigation rounded mt-4 mb-2">
+    {% if article.category_previous %}
+    <div class="nav previous border-right border-color">
+        <a class="near-permalink" href="h{{ SITEURL }}/{{ article.category_previous.url }}">
+            <span>上一篇</span>
+            <h4 class="near-title">{{ article.category_previous.title }}</h4>
+        </a>
+    </div>
+    {% else %}
+    <div class="nav none border-left border-color" style="text-align: left;">
+        <span>上一篇</span>
+        <h4 class="near-title">没有更多了...</h4>    
+    </div>
+    {% endif %}
+
+    {% if article.category_next %}
+    <div class="nav next border-left border-color">
+        <a class="near-permalink" href="{{ SITEURL }}/{{ article.category_next.url }}">
+            <span>下一篇</span>
+            <h4 class="near-title">{{ article.category_next.title }}</h4>
+        </a>
+    </div>
+    {% else %}
+    <div class="nav none border-left border-color" style="text-align: right;">
+        <span>下一篇</span>
+        <h4 class="near-title">没有更多了...</h4>    
+    </div>
+    {% endif %}
+</div>
+
+

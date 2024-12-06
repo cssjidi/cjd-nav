@@ -1,0 +1,46 @@
+<h4 class="text-gray text-lg my-4"><i class="site-tag iconfont icon-book icon-lg mr-1"></i>相关文章</h4>
+<div class="posts-row mb-2">
+    {% if article.related_posts %}
+    {% for related_post in article.related_posts %}
+    <article class="posts-item post-item d-flex style-post-card post-1252 col-2a col-md-4a">
+        <div class="item-header">
+            <div class="item-media">
+                <a class="item-image" href="{{ SITEURL }}/{{ related_post.url }}">
+                    <img class="fill-cover lazy unfancybox entered loaded loadafter"
+                        src="https://nav.iowen.cn/wp-content/uploads/2022/12/2b167-c910-64bc3aacfd0fc8d91151a6089ac9fd84.png"
+                        data-src="https://nav.iowen.cn/wp-content/uploads/2022/12/2b167-c910-64bc3aacfd0fc8d91151a6089ac9fd84.png"
+                        height="auto" width="auto" alt="{{ related_post.title }}" data-ll-status="loaded">
+                </a>
+            </div>
+        </div>
+        <div class="item-body d-flex flex-column flex-fill">
+            <h3 class="item-title line2">
+                <a href="{{ SITEURL }}/{{ related_post.url }}"
+                    title="{{ related_post.title }}">{{ related_post.title }}</a>
+            </h3>
+            <div class="mt-auto">
+                <div class="item-tags overflow-x-auto no-scrollbar">
+
+                </div>
+                <div class="item-meta d-flex align-items-center flex-fill text-muted text-xs">
+                    <div class="meta-left">
+                        <span title="2022-12-09 18:56:54"
+                            class="meta-time">{{ related_post.date.strftime("%b %d, %Y") }}发布</span></div>
+                    <div class="ml-auto meta-right">
+                        <span class="meta-comm d-none d-md-inline-block" data-toggle="tooltip" title=""
+                            js-href="#comments" data-original-title="去评论">
+                            <i class="iconfont icon-comment"></i>0</span><span class="meta-view"><i
+                                class="iconfont icon-chakan-line"></i>569</span>
+                        <span class="meta-like d-none d-md-inline-block"><i class="iconfont icon-like-line"></i>0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+    {% else %}
+    <article class="posts-item post-item d-flex style-post-card post-1252 col-2a col-md-4a mb-4">
+        没有相关文章
+    </article>
+    {% endif %}
+</div>

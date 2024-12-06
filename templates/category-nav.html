@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}{{ super() }} — Articles dans la catégorie «{{ category }}»{% endblock %}
+
+{% block index_title %}Articles dans la catégorie <i>«{{ category }}»</i> :{% endblock %}
+
+{% block style %}
+<style>
+    :root{--main-aside-basis-width:200px;--home-max-width:1620px;--main-radius:12px;--main-max-width:1260px;}.navbar-nav .menu-item-286 a{background: #ff8116;border-radius: 50px!important;padding: 5px 10px!important;margin: 5px 0!important;color: #fff!important;}
+    .navbar-nav .menu-item-286 a i{position: absolute;top: 0;right: -10px;color: #f13522;}
+    .io-black-mode .navbar-nav .menu-item-286 a{background: #ce9412;}
+    .io-black-mode .navbar-nav .menu-item-286 a i{color: #fff;}
+    #footer-tools [data-v-3f531364][data-v-51909324]{
+        top: unset !important;
+        bottom: 0 !important;
+        right: 44px !important
+    }
+    .taxonomy-head-img {
+        background-image: url("{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/banner015.jpg");
+    }
+</style>
+{% endblock %}
+
+{% block other%}
+<div class="taxonomy-head taxonomy-post">
+    <div class="taxonomy-head-body taxonomy-head-fill">
+        <div class="taxonomy-head-bg">
+            <div class="taxonomy-head-img bg-blur entered loaded">
+            </div>
+        </div>
+        <div class="taxonomy-title taxonomy-head-content page-head-content p-3">
+            <h1 class="taxonomy-head-title h3">{{ category }}</h1>
+            <div class="taxonomy-head-count text-xs badge vc-l-white mb-1"><i class="iconfont icon-post mr-1"></i>共
+                {{ page.total }}
+                篇文章 </div>
+            <div class="taxonomy-head-desc line2 text-sm"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<main role="main" class="container my-2">
+    <div class="content">
+        <div class="content-wrap">
+            <div class="content-layout">
+                <div class="content-layout ajax-load-page">
+                    <div class="taxonomy-selects card selects-box">
+                        <div class="cat-selects overflow-x-auto no-scrollbar">
+                            {% for cat in page.categories %}
+                            <a href="{{ SITEURL }}/category/{{ cat }}.html" 
+                               class="{% if cat == category %}cat-select active{% endif %} text-sm">
+                                {{ cat }}
+                            </a>
+                            {% endfor %}     
+                        </div>
+                        <div class="d-flex align-items-center white-nowrap">
+                            <div class="list-select-title">排序</div>
+                            <div class="list-select-line"></div>
+                            <div class="list-selects no-scrollbar">
+                                <a class="list-select ajax-posts-load is-tab-btn"
+                                    href="https://nav.iowen.cn/technology?orderby=date" ajax-method="card"
+                                    data-type="date">发布</a><a class="list-select ajax-posts-load is-tab-btn"
+                                    href="https://nav.iowen.cn/technology?orderby=modified" ajax-method="card"
+                                    data-type="modified">更新</a><a class="list-select ajax-posts-load is-tab-btn"
+                                    href="https://nav.iowen.cn/technology?orderby=views" ajax-method="card"
+                                    data-type="views">浏览</a><a class="list-select ajax-posts-load is-tab-btn"
+                                    href="https://nav.iowen.cn/technology?orderby=like" ajax-method="card"
+                                    data-type="like">点赞</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="posts-row ajax-posts-row row-col-1a row-col-md-2a row-col-lg-3a" data-style="post-min">
+                    {% for article in articles_page.object_list %}
+                    <article class="posts-item sites-item d-flex style-sites-max ajax-item">
+                        <a href="{{ SITEURL }}/{{ article.url }}" title="{{ article.title }}" class="sites-body">
+                            <div class="item-header">
+                                <div class="item-media">
+                                <div class="blur-img-bg lazy-bg entered loaded" data-bg="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/{{ article.favicon_path }}" data-ll-status="loaded" style="background-image: url({{ SITEURL }}/{{ THEME_STATIC_DIR }}/{{ article.favicon_path }});"> </div><div class="item-image"><img class="fill-cover sites-icon lazy unfancybox entered loaded loadafter" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/{{ article.favicon_path }}" data-src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/{{ article.favicon_path }}" height="auto" width="auto" alt="4K世界" data-ll-status="loaded"></div></div></div>
+                            <div class="item-body overflow-hidden d-flex flex-column flex-fill">
+                                <h3 class="item-title line1"><b>{{ article.title }}</b></h3>
+                                <div class="line1 text-muted text-xs">{{ article.website_description }}</div>
+                            </div>
+                        </a> 
+                            <div class="meta-ico text-muted text-xs"><span class="meta-comm d-none d-md-inline-block" data-toggle="tooltip" title="" js-href="https://nav.iowen.cn/sites/1360.html#respond" data-original-title="去评论"><i class="iconfont icon-comment"></i>0</span><span class="meta-view"><i class="iconfont icon-chakan-line"></i>74.6K</span><span class="meta-like d-none d-md-inline-block"><i class="iconfont icon-like-line"></i>37</span></div>
+                        <div class="sites-tags">
+                            <div class="item-tags overflow-x-auto no-scrollbar">
+                                <a href="/{{ article.category.url }}" class="badge vc-l-theme text-ss mr-1" rel="tag" title="查看更多文章"><i class="iconfont icon-folder mr-1"></i>{{ article.category.name }}</a>
+                            </div>
+                            <a href="{{ SITEURL }}/{{ page.website_url }}" target="_blank" rel="external nofollow noopener" class="togo ml-auto text-center text-muted is-views" data-id="1360" data-toggle="tooltip" data-placement="right" title="" data-original-title="直达"><i class="iconfont icon-goto"></i></a>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% include "footer.html" %}
+{% endblock %}

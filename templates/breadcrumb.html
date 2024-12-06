@@ -1,0 +1,24 @@
+<nav class="text-xs mb-3 mb-md-4" aria-label="breadcrumb">
+    {% if DISPLAY_HOME or DISPLAY_HOME is not defined %}
+    <i class="iconfont icon-home"></i>
+    <a class="crumbs" href="{{ SITEURL }}/">首页</a>
+    {% endif %}
+    {% if article %}
+      {% if article.category %}
+      3
+        <i class="text-color vc-theme px-1">•</i>
+        <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category.name }}</a>
+        <i class="text-color vc-theme px-1">•</i>
+        <span>{{ article.title }}</span>
+       {% endif %}
+    {% elif page %}
+        {% if page.category %}
+        <i class="text-color vc-theme px-1">•</i>
+        <a href="{{ SITEURL }}/{{ page.category.url }}">
+          {{ page.category.name }}
+        </a>
+        {% endif %}
+        <i class="text-color vc-theme px-1">•</i>
+        <span>{{ page.title }}</span>
+    {% endif %}
+</nav>

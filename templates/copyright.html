@@ -1,0 +1,10 @@
+<div class="footer-text mt-2 mb-2">
+    <div class="footer-copyright text-xs">
+        {{ COPYRIGHT }}
+        {% if FRIENDS_LINK %}
+        {% for name, url, target in FRIENDS_LINK %}
+        <a href="{{ url }}" title="{{ name }}" class="" target="{{ target }}">{{ name }}</a>&nbsp;
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<aside class="ioui-aside switch-container container">
+    <div class="aside-body" id="layout_aside">
+        <div class="aside-card blur-bg shadow h-100">
+            <ul class="aside-ul overflow-y-auto no-scrollbar">
+                
+                {% for name, icon, show in LEFTSIDE_MENUS %}
+                {% if show %}
+                <li>
+                    <a href="#{{ loop.index }}" class="aside-btn hide-target smooth">
+                        <i class="{{ icon }}"></i>
+                        <span class="ml-2">{{ name }}</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+            <div class="aside-bottom mt-2 pt-2"><a href="javascript:;"
+                    class="aside-btn btn-outdent d-none d-md-block"><i class="iconfont icon-shrink icon-fw"
+                        switch-class="iconfont icon-expand icon-fw"></i><span class="ml-2"
+                        switch-text="展开">收起</span></a><a href="javascript:;" class="aside-btn d-block d-md-none"
+                    data-toggle-div="" data-target="#layout_aside" data-class="is-mobile"><i
+                        class="iconfont icon-shrink icon-fw"></i><span class="ml-2">收起</span></a></div>
+        </div>
+    </div>
+</aside>

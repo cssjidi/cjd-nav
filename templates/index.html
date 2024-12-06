@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style>
+    :root {
+        --main-aside-basis-width: 200px;
+        --home-max-width: 1620px;
+        --main-radius: 12px;
+        --main-max-width: 1620px;
+    }
+
+    .navbar-nav .menu-item-286 a {
+        background: #ff8116;
+        border-radius: 50px !important;
+        padding: 5px 10px !important;
+        margin: 5px 0 !important;
+        color: #fff !important;
+    }
+
+    .navbar-nav .menu-item-286 a i {
+        position: absolute;
+        top: 0;
+        right: -10px;
+        color: #f13522;
+    }
+
+    .io-black-mode .navbar-nav .menu-item-286 a {
+        background: #ce9412;
+    }
+
+    .io-black-mode .navbar-nav .menu-item-286 a i {
+        color: #fff;
+    }
+
+    #footer-tools [data-v-3f531364][data-v-51909324] {
+        top: unset !important;
+        bottom: 0 !important;
+        right: 44px !important
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% include "sidebar.html" %}
+<section class="custom-background">
+    <div class="ioui-content switch-container home-container container">
+        <div class="ioui-main">
+            <div class="content-wrap">
+                <div class="content-layout show-card">
+                    <div class="content-card">
+                        <div class="d-flex flex-fill align-items-center mb-2">
+                            <h4 class="tab-title text-gray text-md m-0"><i class="site-tag iconfont icon-home mr-1"></i>主页</h4>
+                            <div class="flex-fill tab-to-more"></div>
+                        </div>
+                        <div class="row row-col-1a row-col-sm-1a row-col-md-2a row-col-lg-1a row-col-xl-4a row-col-xxl-2a  ajax-list-body position-relative">
+                            {% set date = None %}
+                            {% for article in articles_page.object_list[:2] %}
+                                {% if article.title %}
+                                <article class="posts-item post-item d-flex style-post-min post-1305"> 
+                                    <div class="item-header">
+                                        <div class="item-media">
+                                            <a class="item-image" href="{{ SITEURL }}/{{ article.url }}">
+                                            <img class="fill-cover lazy unfancybox entered loaded loadafter" src="https://nav.iowen.cn/wp-content/uploads/2023/02/dfcd8-ts1.jpg" 
+                                            data-src="https://nav.iowen.cn/wp-content/uploads/2023/02/dfcd8-ts1.jpg" 
+                                            height="auto" width="auto" alt="{{ article.title }}" data-ll-status="loaded">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="item-body d-flex flex-column flex-fill"> 
+                                        <h3 class="item-title line2"> 
+                                            <a href="{{ SITEURL }}/{{ article.url }}" title="{{ article.title }}">{{ article.title }}</a>
+                                        </h3>
+                                        <div class="mt-auto">
+                                        <div class="line1 text-muted text-sm d-none d-md-block">{{ article.summary|striptags }}</div>
+                                        <div class="item-tags overflow-x-auto no-scrollbar">
+                                                <a href="{{ SITEURL }}/{{ article.category.url }}" class="badge vc-l-theme text-ss mr-1" rel="tag">
+                                                    <i class="iconfont icon-folder mr-1"></i>{{ article.category.name }}
+                                                </a>
+                                                {% include "tags.html" %}
+                                        </div>
+                                        <div class="item-meta d-flex align-items-center flex-fill text-muted text-xs">
+                                            <div class="meta-left">
+                                                <span class="meta-time">发表于：{{ article.date.strftime("%Y年%m月%d日 %H:%M") }}</span>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% for name, icon, show in LEFTSIDE_MENUS %}
+                    {% if show %}
+                    <div class="content-card">
+                        <div id="{{ loop.index }}" class="d-flex flex-fill align-items-center mb-2">
+                            <h4 class="tab-title text-gray text-md m-0"><i
+                                    class="site-tag {{ icon }} mr-1"></i>{{ name }}</h4>
+                            <div class="flex-fill tab-to-more"></div>
+                        </div>
+                        <div
+                            class="row row-col-2a row-col-sm-2a row-col-md-2a row-col-lg-2a row-col-xl-4a row-col-xxl-5a">
+                            {% set json_data_var = 'json_data_' ~ loop.index %}
+                            {% set json_data = NAVIGATION_LINKS.get(json_data_var, []) %}
+                            {% if json_data %}
+                            {% for item in json_data %}
+                            <article class="posts-item sites-item d-flex style-sites-default post-{{ outer_index }}-{{ loop.index0 }}">
+                                <a href="post-{{ item.category }}-{{ loop.index0 }}.html" data-id="{{ outer_index }}-{{ loop.index0 }}"
+                                    data-url="{{ item.url }}" class="sites-body " title="{{ item.name }}">
+                                    <div class="item-header">
+                                        <div class="item-media">
+                                            <div class="blur-img-bg lazy-bg entered loaded"
+                                                data-bg="{{ item.icon }}" data-ll-status="loaded"
+                                                style="background-image: url("
+                                                {{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/faviconV2.png");">
+                                                </div> <div class="item-image"><img
+                                                    class="fill-cover sites-icon lazy unfancybox entered loaded loadafter"
+                                                    src="{{ item.icon }}" data-src="{{ item.icon }}" height="auto"
+                                                    width="auto" alt="{{ item.name }}" data-ll-status="loaded">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-body overflow-hidden d-flex flex-column flex-fill">
+                                        <h3 class="item-title line1"><b>{{ item.name }}</b></h3>
+                                        <div class="line1 text-muted text-xs">{{ item.desc }}</div>
+                                    </div>
+                                </a>
+                                <div class="sites-tags">
+                                    <a href="{{ item.url }}" target="_blank" rel="external nofollow noopener"
+                                        class="togo ml-auto text-center text-muted is-views"
+                                        data-id="{{ loop.index}}" data-toggle="tooltip" data-placement="right"
+                                        title="" data-original-title="直达"><i class="iconfont icon-goto"></i></a>
+                                </div>
+                            </article>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% include "copyright.html" %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

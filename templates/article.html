@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style>
+    :root {
+        --main-aside-basis-width: 200px;
+        --home-max-width: 1620px;
+        --main-radius: 12px;
+        --main-max-width: 1260px;
+    }
+
+    .navbar-nav .menu-item-286 a {
+        background: #ff8116;
+        border-radius: 50px !important;
+        padding: 5px 10px !important;
+        margin: 5px 0 !important;
+        color: #fff !important;
+    }
+
+    .navbar-nav .menu-item-286 a i {
+        position: absolute;
+        top: 0;
+        right: -10px;
+        color: #f13522;
+    }
+
+    .io-black-mode .navbar-nav .menu-item-286 a {
+        background: #ce9412;
+    }
+
+    .io-black-mode .navbar-nav .menu-item-286 a i {
+        color: #fff;
+    }
+</style>
+{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% if article.tags %}
+<meta name="keywords" content="{{ article.tags|join(",") }}" />
+{% endif %}
+{% if article.description %}
+<meta name="description" content="{{ article.description }}" />
+{% endif %}
+{% endblock %}
+
+{% block title %}{{ SITENAME }} | {{ article.title|striptags }}{% endblock %}
+{% block content %}
+<main role="main" class="container my-2">
+    {% include "breadcrumb.html" %}
+    <div class="content">
+        <div class="content-wrap">
+            <div class="content-layout">
+                <div class="panel card">
+                    <div class="card-body">
+                        <div class="panel-header mb-4">
+                            {% if article.title %}
+                            <h1 class="h3 mb-3">{{ article.title }}</h1>
+                            {% endif %}
+                            <div class="d-flex flex-fill text-muted text-sm pb-4 border-bottom border-color"><span
+                                    class="mr-3 d-none d-sm-block">
+                                    <a href="{{ SITEURL }}/{{ article.category.url }}"><i
+                                            class="iconfont icon-folder2"></i> {{ article.category.name }}</a></span><span class="mr-3"><i
+                                        class="iconfont icon-time-o"></i><span
+                                        title="{{ article.date.strftime("%b %d, %Y") }}发布">{{ article.date.strftime("%b %d, %Y") }}发布</span></span><span
+                                    class="mr-3 d-none d-md-block"><a href="https://nav.iowen.cn/author/1" title="{{ article.author }}"><i
+                                            class="iconfont icon-user"></i> {{ article.author }}</a></span>
+                                <div class="flex-fill"></div>
+                            </div>
+                        </div>
+                        <div class="panel-body single mt-2">
+                            {{ article.content }}
+                        </div>
+                        <div class="post-tags my-3">
+                            {% include "tags.html" %}
+                        </div>
+                        <div class="text-xs text-muted">
+                            <div><span>©</span> 版权声明</div>
+                            <div class="posts-copyright">文章版权归作者所有，未经允许请勿转载。</div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                {% include 'prev_next.html' %}
+                
+                {% include 'related-posts.html' %}
+
+                {% include "comment.html" %}
+            </div>
+        </div>
+    </div>
+</main>
+{% include "footer.html" %}
+{% endblock %}
+

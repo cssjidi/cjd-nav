@@ -1,0 +1,20 @@
+{% if articles_page %}
+<div class="near-navigation mt-4 py-2">
+    <div class="nav previous border-right border-color">
+        {% if articles_page.has_previous() %}
+        <a class="near-permalink" href="{{ SITEURL }}/{{ articles_page.previous_page_number() }}">
+            <span class="text-muted">上一篇</span>
+            <h4 class="near-title">onenav 短代码示例</h4>
+        </a>
+        {% endif %}
+    </div>
+    <div class="nav next border-left border-color">
+        {% if articles_page.has_next() %}
+        <a class="near-permalink" href="{{ SITEURL }}/{{ articles_page.next_page_number() }}">
+            <span class="text-muted">下一篇</span>
+            <h4 class="near-title">OneNav导航主题主菜单设置说明</h4>
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}

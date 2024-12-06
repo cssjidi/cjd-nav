@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}{{ super() }} — Articles dans la catégorie «{{ category }}»{% endblock %}
+
+{% block index_title %}Articles dans la catégorie <i>«{{ category }}»</i> :{% endblock %}
+
+{% block style %}
+<style>
+    .taxonomy-head-img {
+        background-image: url("{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/banner015.jpg");
+    }
+</style>
+{% endblock %}
+
+{% block other%}
+<div class="taxonomy-head taxonomy-post">
+    <div class="taxonomy-head-body taxonomy-head-fill">
+        <div class="taxonomy-head-bg">
+            <div class="taxonomy-head-img bg-blur entered loaded">
+            </div>
+        </div>
+        <div class="taxonomy-title taxonomy-head-content page-head-content p-3">
+            <h1 class="taxonomy-head-title h3">{{ category }}</h1>
+            <div class="taxonomy-head-count text-xs badge vc-l-white mb-1"><i class="iconfont icon-post mr-1"></i>共
+                {{ articles_page.object_list|length }}
+                篇文章 </div>
+            <div class="taxonomy-head-desc line2 text-sm"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<main role="main" class="container my-2">
+    <div class="content">
+        <div class="content-wrap">
+            <div class="content-layout">
+                <div class="content-layout ajax-load-page">
+                    <div class="taxonomy-selects card selects-box">
+                        <div class="cat-selects overflow-x-auto no-scrollbar">
+                            {% for t, a in categories %}
+                            {% if t != 'misc' %}
+                            <a href="{{ SITEURL }}/{{ t.url }}" class="{% if t == category %}cat-select active{% endif %} text-sm">{{ t }}</a>
+                            {% endif %}
+                            {% endfor %}    
+                        </div>
+                        <div class="d-flex align-items-center white-nowrap">
+                            <div class="list-select-title">排序</div>
+                            <div class="list-select-line"></div>
+                            <div class="list-selects no-scrollbar">
+                                <a class="list-select ajax-posts-load is-tab-btn"
+                                    href="https://nav.iowen.cn/technology?orderby=date" ajax-method="card"
+                                    data-type="date">发布</a><a class="list-select ajax-posts-load is-tab-btn"
+                                    href="https://nav.iowen.cn/technology?orderby=modified" ajax-method="card"
+                                    data-type="modified">更新</a><a class="list-select ajax-posts-load is-tab-btn"
+                                    href="https://nav.iowen.cn/technology?orderby=views" ajax-method="card"
+                                    data-type="views">浏览</a><a class="list-select ajax-posts-load is-tab-btn"
+                                    href="https://nav.iowen.cn/technology?orderby=like" ajax-method="card"
+                                    data-type="like">点赞</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="posts-row ajax-posts-row row-col-1a row-col-md-2a" data-style="post-min">
+                    {% for article in articles_page.object_list %}
+                    <article class="posts-item post-item d-flex style-post-min post-1305 ajax-item">
+                        <div class="item-header">
+                            <div class="item-media">
+                                <a class="item-image" href="{{ SITEURL }}/{{ article.url }}">
+                                    <img class="fill-cover lazy unfancybox entered loaded loadafter"
+                                        src="https://nav.iowen.cn/wp-content/uploads/2023/02/dfcd8-ts1.jpg"
+                                        data-src="https://nav.iowen.cn/wp-content/uploads/2023/02/dfcd8-ts1.jpg"
+                                        height="auto" width="auto" alt="{{ article.title }}" data-ll-status="loaded">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="item-body d-flex flex-column flex-fill">
+                            <h3 class="item-title line2">
+                                <a href="{{ SITEURL }}/{{ article.url }}"
+                                    title="{{ article.title }}">{{ article.title }}</a>
+                            </h3>
+                            <div class="mt-auto">
+                                <div class="line1 text-muted text-sm d-none d-md-block">{{ article.summary|striptags }}</div>
+                                <div class="item-tags overflow-x-auto no-scrollbar">
+                                    {% if article.tags %}
+                                    {% for t in article.tags %}
+                                    <a href="{{ SITEURL }}/{{ t.url }}"
+                                        class="btn btn-sm text-height-xs m-1 rounded-pill text-xs" rel="tag" title="查看更多">
+                                        # {{ t }}
+                                    </a>
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="item-meta d-flex align-items-center flex-fill text-muted text-xs">
+                                    <div class="meta-left"><span
+                                            title="2023-02-23 19:10:04" class="meta-time">发表于：{{ article.date.strftime("%b %d, %Y") }}</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% include "footer.html" %}
+{% endblock %}

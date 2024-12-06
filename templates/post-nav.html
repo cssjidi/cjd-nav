@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style>
+    :root {
+        --main-aside-basis-width: 200px;
+        --home-max-width: 1620px;
+        --main-radius: 12px;
+        --main-max-width: 1260px;
+    }
+
+    .navbar-nav .menu-item-286 a {
+        background: #ff8116;
+        border-radius: 50px !important;
+        padding: 5px 10px !important;
+        margin: 5px 0 !important;
+        color: #fff !important;
+    }
+
+    .navbar-nav .menu-item-286 a i {
+        position: absolute;
+        top: 0;
+        right: -10px;
+        color: #f13522;
+    }
+
+    .io-black-mode .navbar-nav .menu-item-286 a {
+        background: #ce9412;
+    }
+
+    .io-black-mode .navbar-nav .menu-item-286 a i {
+        color: #fff;
+    }
+
+    #footer-tools [data-v-3f531364][data-v-51909324] {
+        top: unset !important;
+        bottom: 0 !important;
+        right: 44px !important
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<main class="container my-2" role="main" style="transform: none;">
+    {% include "breadcrumb.html"%}
+    <div class="d-flex flex-column flex-md-row site-content mb-4 mb-md-5">
+        <!-- 网址信息 -->
+        <div class="site-body flex-fill text-sm">
+            <div class="d-flex flex-wrap mb-4">
+                <div class="site-name-box flex-fill mb-3">
+                    <h1 class="site-name h3 mb-3">{{ page.title }}</h1>
+                    <div class="d-flex flex-fill text-muted text-sm"><span class="mr-3"><i
+                                class="iconfont icon-time-o"></i><span
+                                title="2023年4月4日 18:20发布">3个月前更新</span></span><span class="views mr-3"><i
+                                class="iconfont icon-chakan-line"></i> 74.2K</span><span class="mr-3"><a class="smooth"
+                                href="#comments"> <i class="iconfont icon-comment"></i> 0</a></span>
+                        <a href="javascript:;" data-type="like" data-post_type="sites" data-post_id="1360"
+                            data-ticket="8daaa1c955" class="io-posts-like mr-3" data-toggle="tooltip" title=""
+                            data-original-title="点赞"><i class="iconfont icon-like-line mr-1"></i>
+                            <small class="star-count text-xs">16</small>
+                        </a></div>
+                </div>
+                <div class="posts-like">
+                    <a href="javascript:;" data-type="favorite" data-post_type="sites" data-post_id="1360"
+                        data-ticket="8daaa1c955" class="io-posts-like btn vc-l-red text-md py-1" data-toggle="tooltip"
+                        title="" data-original-title="收藏"><i class="iconfont icon-collection-line mr-1"
+                            data-class="icon-collection icon-collection-line"></i>收藏
+                        <small class="star-count text-xs"></small>
+                    </a></div>
+            </div>
+            <div class="mt-2">
+                <p class="mb-2">{{ page.website_description }}</p>
+                <div class="table-div">
+                    <div class="table-row">
+                        <div class="table-title">收录时间：</div>
+                        <div class="table-value"></div>
+                    </div>
+                </div>
+                <div class="site-go mt-3"><a
+                        href="{{ page.website_url }}"
+                        title="{{ page.title }}" target="_blank" class="btn vc-theme btn-shadow px-4 btn-i-r mr-2"><span>打开网站<i
+                                class="iconfont icon-arrow-r-m"></i></span></a><a href="javascript:"
+                        class="btn vc-red tooltip-toggle mr-2" data-post_id="1360" data-toggle="modal"
+                        data-placement="top" data-target="#report-sites-modal" title="" data-original-title="反馈"><i
+                            class="iconfont icon-statement icon-lg"></i></a></div>
+                <div class="terms-list mt-3"><a href="{{ page.category.url }}"
+                        class="vc-l-green btn btn-sm text-height-xs m-1 rounded-pill text-sm" rel="tag" title="查看更多"><i
+                            class="iconfont icon-folder mr-1"></i>{{ page.category.name }}</a></div>
+            </div>
+        </div><!-- 网址信息 end -->
+        <div class="sites-preview ml-0 ml-md-2 mt-3 mt-md-0">
+            <div class="preview-body">
+                <div class="site-favicon"><img
+                        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/{{ page.favicon_path }}"
+                        alt="{{ page.title }}" width="16" height="16"><span class="text-muted text-xs">{{ page.title }}</span></div>
+                <div class="site-img"><img class="lazy unfancybox entered loaded loadafter"
+                        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/{{ page.screenshot_path }}" height="300" width="456"
+                        alt="{{ page.title }}" data-ll-status="loaded"></div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="content-wrap">
+            <div class="content-layout">
+                <h4 class="text-gray text-lg my-4"><i class="site-tag iconfont icon-tag icon-lg mr-1"></i>相关导航</h4>
+                <div class="posts-row">
+                    {% set json_data_var = 'json_data_' ~ page.index %}
+                    {% set json_data = NAVIGATION_LINKS.get(json_data_var, []) %}
+                    {% set random_data = json_data | random_sample(8) if json_data is not none else [] %}
+                    {% for item in random_data %}
+                                        <article class="posts-item sites-item d-flex style-sites-default col-2a col-md-4a post-{{ loop.index0 }}">
+                                            <a href="post-{{ item.category }}-{{ loop.index0 }}.html" data-id="{{ loop.index0 }}"
+                                                data-url="{{ item.url }}" class="sites-body " title="{{ item.name }}">
+                                                <div class="item-header">
+                                                    <div class="item-media">
+                                                        <div class="blur-img-bg lazy-bg entered loaded"
+                                                            data-bg="{{ item.icon }}" data-ll-status="loaded"
+                                                            style="background-image: url("
+                                                            {{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/faviconV2.png");">
+                                                                </div> <div class="item-image"><img
+                                                                    class="fill-cover sites-icon lazy unfancybox entered loaded loadafter"
+                                                                    src="{{ item.icon }}" data-src="{{ item.icon }}" height="auto"
+                                                                    width="auto" alt="{{ item.name }}" data-ll-status="loaded">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="item-body overflow-hidden d-flex flex-column flex-fill">
+                                                            <h3 class="item-title line1"><b>{{ item.name }}</b></h3>
+                                                            <div class="line1 text-muted text-xs">{{ item.desc }}</div>
+                                                        </div>
+                                                    </a>
+                                                    <div class="sites-tags">
+                                                        <a href="{{ item.url }}" target="_blank" rel="external nofollow noopener"
+                                                            class="togo ml-auto text-center text-muted is-views"
+                                                            data-id="{{ loop.index}}" data-toggle="tooltip" data-placement="right"
+                                                            title="" data-original-title="直达"><i class="iconfont icon-goto"></i></a>
+                                                    </div>
+                                                </article>
+                                                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}
